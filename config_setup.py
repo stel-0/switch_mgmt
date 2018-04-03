@@ -15,14 +15,14 @@ TODO:
     2)  do some error checking. For example, some of the
         commands may not be existent on particular OSs
 """
-def get_kernel_name():
-    run('uname -s', shell=False)
+def get_routing_table():
+    run('show ip route', shell=False)
 
-def get_kernel_release():
-    run('uname -r', shell=False)
+def get_routing_protocols():
+    run('show ip protocols', shell=False)
 
-def get_kernel_version():
-    run('uname -v', shell=False)# stdout=yo, stderr=yo)
+def get_cdp_neighbours():
+    run('show cdp neighbours', shell=False)# stdout=yo, stderr=yo)
 
 def get_arch():
     run('uname -m', shell=False)
@@ -35,8 +35,8 @@ def main():
     parser = argparse.ArgumentParser(description='configure remote server')
     parser.add_argument('--hostname', default='localhost', help='Hostname of server')
     parser.add_argument('-u', '--username', help='Username to use for login')
-    parser.add_argument('--kernel-version', dest='commands', action='append_const', const=get_kernel_version)
-    parser.add_argument('--kernel-release', dest='commands', action='append_const', const=get_kernel_release)
+    parser.add_argument('--routing-table', dest='commands', action='append_const', const=get_routing_table)
+    parser.add_argument('--cdp-neighbours', dest='commands', action='append_const', const=get_cdp_neighbours)
     args = parser.parse_args()
     #print(args)
 
